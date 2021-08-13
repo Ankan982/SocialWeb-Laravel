@@ -20,23 +20,41 @@ class LikeController extends Controller
     }
 
 
-    public function likePost($post_id )
+    public function likePost($post_id)
     {
         $user_id = auth()->user()->id;
         //dd($post_id, $user_id);
+        $search = $this->postService->search($post_id, $user_id);
 
-        try {
+        if ($search) {
+            try {
 
-            $liked = $this->postService->createLike($post_id, $user_id);
+                $disLiked = $this->postService->disLike($post_id, $user_id);
 
-            if ($liked) {
-                return redirect()->back()->with('message-success', 'Post has been liked successfully.');
-            } else {
-                return redirect()->back()->with('message-error', 'Like has a problem here!');
+                if ($disLiked) {
+                    return redirect()->back()->with('message-success', 'Post has been disliked successfully.');
+                } else {
+                    return redirect()->back()->with('message-error', 'Dislike has a problem here!');
+                }
+            } catch (Exception $e) {
+                dd($e->getMessage());
+                return redirect()->back()->with('message-error', 'Something Went Wrong. Please try after some time');
             }
-        } catch (Exception $e) {
-            dd($e->getMessage());
-            return redirect()->back()->with('message-error', 'Something Went Wrong. Please try after some time');
+        } else {
+
+            try {
+
+                $liked = $this->postService->createLike($post_id, $user_id);
+
+                if ($liked) {
+                    return redirect()->back()->with('message-success', 'Post has been liked successfully.');
+                } else {
+                    return redirect()->back()->with('message-error', 'Like has a problem here!');
+                }
+            } catch (Exception $e) {
+                dd($e->getMessage());
+                return redirect()->back()->with('message-error', 'Something Went Wrong. Please try after some time');
+            }
         }
     }
 }

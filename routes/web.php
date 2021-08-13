@@ -9,6 +9,7 @@ use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\AlbumController;
 use App\Http\Controllers\User\FriendController;
 use App\Http\Controllers\User\GoogleController;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,16 @@ use App\Http\Controllers\User\GoogleController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//language  changing
+
+Route::get('/set-locale/{locale}' ,function($locale){
+
+    Session::put('locale', $locale );
+    return redirect()->back();
+    //dd(Session::get('locale'));
+ })->name('setlocal');
+
+Route::middleware(['locale'])->group(function () {
 
 Route::get('/',        [UserController::class, 'index'])->name('index');
 Route::get('/send', [TwilioSMSController::class, 'send']);
@@ -73,4 +84,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
 
         Route::get('/logout',                     [UserController::class, 'logout'])->name('logout');
     });
+});
+
+
 });

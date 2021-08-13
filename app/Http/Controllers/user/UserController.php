@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\User;
-    
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use App\Mail\VerifyEmail;
@@ -22,7 +21,7 @@ use App\Http\Requests\RegisterUser;
 
 class UserController extends Controller
 {
-    protected $userService,$postService;
+    protected $userService, $postService;
 
     public function __construct(UserService $userService, postService $postService)
     {
@@ -33,15 +32,16 @@ class UserController extends Controller
 
     public function index()
     {
-        $all_posts= $this->postService->findAllPost();
-       // dd($all_posts);
+        $all_posts = $this->postService->findAllPost();
+        // dd($all_posts);
         return view('user.homeifNotLogin', compact('all_posts'));
     }
 
     public function home()
     {
         $user_id = auth()->user()->id;
-        $all_posts= $this->postService->findAll($user_id);
+        $all_posts = $this->postService->findAll($user_id);
+
         //dd($all_posts);
         return view('user.homeifLogin', compact('all_posts', 'user_id'));
     }
@@ -57,7 +57,7 @@ class UserController extends Controller
     {
         return view('user.changepassword');
     }
- 
+
 
 
 
@@ -66,15 +66,15 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $user_id = auth()->user()->id;
-        $user_posts= $this->postService->findOne($user_id);
+        $user_posts = $this->postService->findOne($user_id);
         //dd($user_posts);
-        return view('user.profile', compact('user','user_posts'));
+        return view('user.profile', compact('user', 'user_posts'));
     }
-    
+
 
     public function registerAction(RegisterUser $request)
     {
-    
+
         try {
             $data = $request->all();
             $data['password'] = bcrypt($data['password']);
@@ -107,7 +107,7 @@ class UserController extends Controller
 
     public function loginAction(LoginUser $request)
     {
-       // server side validation is done using request class
+        // server side validation is done using request class
 
         try {
 
@@ -192,46 +192,24 @@ class UserController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-    
+
         // dd($e->getMessage());
-     
+
         try {
 
-            $data = ['password'=> Hash::make($request->new_password)];
+            $data = ['password' => Hash::make($request->new_password)];
             $user_id = auth()->user()->id;
             $isUpatedUser = $this->userService->update($data, $user_id);
             if ($isUpatedUser) {
-              
+
                 return redirect()->route('user.profile')->with('message-success', 'Password has been updated.');
             } else {
-       
+
                 return redirect()->back()->with('message-error', 'Password is not matched.');
             }
         } catch (\Exception $e) {
             Session::flash('message-error', 'Something Went Wrong');
             return redirect()->back();
         }
-   
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

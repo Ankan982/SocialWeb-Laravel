@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class postService
 {
-    protected $post,$like;
+    protected $post, $like;
 
     public function __construct(Post $post, Like $like)
     {
@@ -20,47 +20,66 @@ class postService
     }
 
 
-   public function findAllPost()
-   {
-     $a = $this->post::with('allPosts', 'postToUser')
+    public function findAllPost()
+    {
+        $a = $this->post::with('allPosts', 'postToUser')
             ->where('privacy', '!=', 'me')
             ->orderBy('created_at', 'desc')->get();
 
-         return $a;
-   }
+        return $a;
+    }
 
     /**
      * Find All post List
      * @return array
      */
-    public function findAll($id)
+    public function findAll($userid)
     {
         $a = $this->post::with('allPosts', 'postToUser', 'likes')
             ->where('privacy', '!=', 'me')
             ->orderBy('created_at', 'desc')->get();
 
+
         $b = $this->post::with('allPosts', 'postToUser', 'likes')
-            ->where('user_id', $id)
+            ->where('user_id', $userid)
             ->orderBy('created_at', 'desc')->get();
 
         $ans = $a->merge($b);
         //dd($ans); 
         return $ans;
-        
     }
-      /**
+    /**
      * Insert in Like table
      * @return array
      */
     public function createLike($post_id, $user_id)
     {
         $details = [
-         'user_id' => $user_id,
-         'post_id' => $post_id
-        ];  
-       // dd($details);
-        return $this->like->create($details);   
+            'user_id' => $user_id,
+            'post_id' => $post_id
+        ];
+        // dd($details);
+        return $this->like->create($details);
     }
+
+    /**
+     * Find first post Details which is liked by the auth user
+     * @return object
+     */
+    public function search($post_id, $user_id)
+    {
+        return $this->like->where('user_id', $user_id)->where('post_id', $post_id)->first();
+    }
+    /**
+     * Dislike the post by auth user
+     * @return object
+     */
+    public function disLike($post_id, $user_id)
+    {
+        $likedPost = $this->like->where('user_id', $user_id)->where('post_id', $post_id)->first();
+        return $likedPost->delete();
+    }
+
     /**
      * Find post Details
      * @return array

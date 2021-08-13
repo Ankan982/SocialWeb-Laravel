@@ -36,8 +36,10 @@
             <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
             <div class="d-flex justify-content-between">
                 <p>Like: {{count($posts->likes)}}</p>
+
+               
                   
-                <a href="{{route('user.likepost', $post->id )}}"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="{{route('user.likepost', $post->id )}}"><i class="bi bi-heart-fill"></i></a>
                <a href="{{route('user.comments', $post->id )}}"><i class="bi bi-chat-fill"></i></a>
 
             </div>

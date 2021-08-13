@@ -19,8 +19,8 @@
             <h5 class="card-title">{{ $post->caption }}</h5>
             <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
             <div class="d-flex justify-content-between">
-                <a href="{{route('user.signin')}}" class="btn btn-info mt-2">Like</a>
-                <a href="{{route('user.signin')}}" class="btn btn-warning mt-2">Comment</a>
+            <a href="{{route('user.signin' )}}"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+               <a href="{{route('user.signin')}}"><i class="bi bi-chat-fill"></i></a>
             </div>
 
         </div>

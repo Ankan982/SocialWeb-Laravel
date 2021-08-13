@@ -16,10 +16,12 @@
  
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+ 
 
 <body>
+
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{{route('user.home')}}">SocialWeb</a>
@@ -29,19 +31,33 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="{{route('user.home')}}"> <i class="bi bi-house-door-fill"></i>Home</a>
+    
+            <a class="nav-link @if(request()->route()->getName() =='user.home' ) active @endif "  href="{{route('user.home')}}"> <i class="bi bi-house-door-fill"></i>{{ __('menu.Home') }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{route('user.post')}}"><i class="bi bi-camera-fill"></i> Add Post</a>
+            <a class="nav-link @if(request()->route()->getName() =='user.post' ) active @endif" href="{{route('user.post')}}"><i class="bi bi-camera-fill"></i> {{__('menu.Add Post')}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{route('user.album')}}"><i class="bi bi-journal-album"></i> Albums</a>
+            <a class="nav-link @if(request()->route()->getName() =='user.album' ) active @endif" href="{{route('user.album')}}"><i class="bi bi-journal-album"></i> Albums</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{route('user.friends')}}"><i class="bi bi-people-fill"></i> Friends</a>
+            <a class="nav-link @if(request()->route()->getName() =='user.friends' ) active @endif" href="{{route('user.friends')}}"><i class="bi bi-people-fill"></i> Friends</a>
           </li>
          
         </ul>
+
+        <div>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Language
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            @php
+              $locale = Session::get('locale') ?? 'en' ;
+            @endphp
+            <li><a class="dropdown-item @if($locale == 'en' ) active @endif" href="{{ route('setlocal', ['locale'=>'en'] )}}">English</a></li>
+            <li><a class="dropdown-item @if($locale == 'es' ) active @endif" href="{{ route('setlocal', ['locale'=>'es'] )}}">Spanish</a></li> 
+          </ul>
+        </div>
 
         <div>
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,6 +70,8 @@
             <li><a class="dropdown-item" href="{{route('user.logout')}}">Logout</a></li>
           </ul>
         </div>
+
+        
         
       </div>
     </div>
