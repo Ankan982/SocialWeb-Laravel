@@ -7,13 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SocialWeb-Home</title>
   <link rel="stylesheet" type="text/css" href="{{ asset('css/user/image.css') }}">
-
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}"> 
 
  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
- 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap" rel="stylesheet">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -42,6 +42,10 @@
           </li>
           <li class="nav-item">
             <a class="nav-link @if(request()->route()->getName() =='user.friends' ) active @endif" href="{{route('user.friends')}}"><i class="bi bi-people-fill"></i> Friends</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link @if(request()->route()->getName() =='user.chats' ) active @endif" href="{{route('user.chats')}}"><i class="bi bi-chat-text"></i> Group Chat</a>
           </li>
          
         </ul>

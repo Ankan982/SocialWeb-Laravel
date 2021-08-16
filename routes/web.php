@@ -8,6 +8,7 @@ use App\Http\Controllers\User\TwilioSMSController;
 use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\AlbumController;
 use App\Http\Controllers\User\FriendController;
+use App\Http\Controllers\User\ChatController;
 use App\Http\Controllers\User\GoogleController;
 use Illuminate\Support\Facades\Session;
 
@@ -78,6 +79,9 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         Route::post('/comments/upload/{id}',    [CommentController::class, 'comment'])->name('commentUpload');
 
         Route::get('/friends',                   [FriendController::class, 'index'])->name('friends');
+
+        Route::get('/chat',                 [ChatController::class, 'index'])->name('chats');
+        Route::post('/send-message',        [ChatController::class, 'sendMessage'])->name('sendmessage');
 
 
 

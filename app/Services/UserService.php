@@ -74,7 +74,10 @@ class UserService
     {
         return $this->user::where('email', $email)->first();
     }
-
+    public function userDetailsById($id)
+    {
+        return $this->user::where('id', $id)->first();
+    }
     public function emailVerification($token)
     {
         $response = VerifyUser::with('user')->where('token', $token)->first();
