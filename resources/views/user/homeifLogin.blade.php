@@ -27,7 +27,7 @@
 
         <div class="d-flex justify-content-between bg-dark">
             <p style="margin-left:9px ; margin-top:5px;" class= "text-white"><i class="bi bi-person-circle"></i> <b>{{$posts->postToUser->name}} </b> </p>
-            <p style="margin-right:9px ;  margin-top:5px;" class= "text-secondary"><i class="bi bi-shield-fill"></i> {{$posts->privacy}}</p>
+            <p style="margin-right:9px ;  margin-top:5px;" class= "text-secondary"><i class="bi bi-shield-lock-fill"></i> {{$posts->privacy}}</p>
         </div>
 
         <img src="{{asset($post->image_path)}}" class="card-img-top" alt="Post">
@@ -39,7 +39,7 @@
 
                
                   
-                <a href="{{route('user.likepost', $post->id )}}"><i class="bi bi-heart-fill"></i></a>
+                <a href="{{route('user.likepost', $post->id )}}"><i class="bi bi-suit-heart-fill"></i></a>
                <a href="{{route('user.comments', $post->id )}}"><i class="bi bi-chat-fill"></i></a>
 
             </div>

@@ -98,7 +98,7 @@ class UserController extends Controller
 
             Mail::to($user_details->email)->send(new VerifyEmail($email_data));
 
-            return redirect()->route('user.signup')->with('message-success', 'Please Check Your Email. Verify Your Email');;
+            return redirect()->route('user.signup')->with('message-success', 'Please Check Your Email. Verify Your Email');
         } catch (Exception $e) {
             //dd($e->getMessage());
             return redirect()->route('user.signup')->with('message-error', 'Something Went Wrong. Please try after some time');

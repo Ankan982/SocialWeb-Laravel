@@ -39,7 +39,7 @@ class GoogleController extends Controller
            
             $finduser = User::Where('email', $user->email )->first();
        
-          //  dd($finduser); // first() = object, first()->toArray() ->array conversion
+          // dd($finduser); // first() = object, first()->toArray() ->array conversion
                              // get()  = array
 
             if($finduser){
