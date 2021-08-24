@@ -22,7 +22,6 @@
   <img src="{{asset($album->cover_image)}}" class="card-img-top" alt="Album Cover">
   <div class="card-body">
     <h5 class="card-title">{{$album->album_name}}</h5>
-    <p class="card-text">This is album description.</p>
     <a href="{{route('user.albumdetails',$album->id)}}" class="btn btn-primary"> More</a>
   </div>
 </div>

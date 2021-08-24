@@ -29,7 +29,7 @@ input{
    display: flex;
    flex-direction: column;
    height: 100vh;
- }
+}
 header{
     display: flex;
     padding-top: 15px;

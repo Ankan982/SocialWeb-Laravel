@@ -8,10 +8,10 @@
 @endforeach
 @endif
 
-<h1 class="text-center mt-3">Album Details</h1>
+
 
 @foreach($album_info as $album)
-<div class="card bg-dark text-white" style="width: 60%; height:30% ;  margin: auto;">
+<div class="card bg-dark text-white mt-1" style="width: 60%; height:30% ;  margin: auto;">
   <img src="{{asset($album->cover_image)}}" class="card-img" alt="lbum cover">
   <div class="card-img-overlay">
     <h5 class="card-title">{{$album->album_name}}</h5>
@@ -38,9 +38,7 @@
             <h5 class="card-title">{{ $posts->caption }}</h5>
             <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
             <div class="d-flex justify-content-between">
-                <i class="bi bi-star"></i>
-                <i class="bi bi-chat-right-text"></i>
-                <i class="bi bi-bookmark"></i>
+              SeeComments:  <a href="{{route('user.comments', $posts->id )}}"><i class="bi bi-chat-fill"></i></a>
             </div>
 
         </div>
