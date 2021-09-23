@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'userauth' =>  \App\Http\Middleware\UserRedirectifAuth::class,
         'locale' =>  \App\Http\Middleware\Localization::class,
+        'disable_back_btn' =>  \App\Http\Middleware\DisableBackBtn::class,
     ];
 }
