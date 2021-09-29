@@ -6,6 +6,7 @@ use App\Http\Controllers\User\LikeController;
 use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\TwilioSMSController;
 use App\Http\Controllers\User\PostController;
+use App\Http\Controllers\User\VideoController;
 use App\Http\Controllers\User\AlbumController;
 use App\Http\Controllers\User\FriendController;
 use App\Http\Controllers\User\ChatController;
@@ -54,10 +55,10 @@ Route::middleware(['locale'])->group(function () {
                 Route::post('/profile/edit',              [UserController::class, 'ProfileEditAction'])->name('profileeditaction');
                 Route::get('/post/add',                   [PostController::class, 'index'])->name('post');
 
-                Route::post('/post/upload',               [PostController::class, 'upload'])->name('uploadpost');
+                Route::post('/posts/upload',               [PostController::class, 'upload'])->name('uploadpost');
                 Route::get('/upload-post/edit/{id}',      [PostController::class, 'editPost'])->name('editpost');
                 Route::post('/upload-post/edit/{id}',     [PostController::class, 'editPostAction'])->name('editpostaction');
-                Route::get('post/delete/{id}',            [PostController::class, 'deletePost'])->name('deletepost');
+                Route::get('posts/delete/{id}',            [PostController::class, 'deletePost'])->name('deletepost');
 
                 Route::get('/album',                        [AlbumController::class, 'index'])->name('album');
                 Route::get('/album/details/{id}',                 [AlbumController::class, 'show'])->name('albumdetails');
@@ -74,6 +75,9 @@ Route::middleware(['locale'])->group(function () {
 
                 Route::get('/chat',                 [ChatController::class, 'index'])->name('chats');
                 Route::post('/send-message',        [ChatController::class, 'sendMessage'])->name('sendmessage');
+
+                Route::get('/videos',                 [VideoController::class, 'index'])->name('videos');
+                Route::post('/send-videos',        [VideoController::class, 'upload'])->name('upload.videos');
 
 
 

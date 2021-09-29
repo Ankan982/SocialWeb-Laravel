@@ -40,6 +40,9 @@
           <li class="nav-item">
             <a class="nav-link @if(request()->route()->getName() =='user.album' ) active @endif" href="{{route('user.album')}}"><i class="bi bi-collection-fill"></i> Albums</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link @if(request()->route()->getName() =='user.videos' ) active @endif" href="{{route('user.videos')}}"><i class="bi bi-film"></i> Video </a>
+          </li>
 
 
           <li class="nav-item">
@@ -84,7 +87,21 @@
   @yield('mainsection')
 
 
+  <script type="text/javascript">
+    video = jQuery('#video').get()[0];
 
+    video.addEventListener('loadeddata', function() {
+      video.play();
+    });
+
+
+    $(window).scroll(function() {
+    if($(window).scrollTop() > 0)
+          video.pause();
+    else
+      video.play();
+});
+  </script>
 
 </body>
 

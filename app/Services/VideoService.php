@@ -3,26 +3,26 @@
 namespace App\Services;
 
 use App\Models\post;
-use App\Models\Like;
-use App\Models\PostDetail;
 
+use App\Models\PostDetail;
+use App\Models\Video;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-class postService
+class VideoService
 {
-    protected $post, $like;
+    protected $video;
 
-    public function __construct(Post $post, Like $like)
+    public function __construct(Video $video)
     {
-        $this->post = $post;
-        $this->like = $like;
+        $this->video = $video;
+        
     }
 
 
     public function findAllPost()
     {
-        $a = $this->post::with('allPosts', 'postToUser')
+        $a = $this->video::with('allPosts', 'postToUser')
             ->where('privacy', '!=', 'me')
             ->orderBy('created_at', 'desc')->get();
 
@@ -35,17 +35,17 @@ class postService
      */
     public function findAll($userid)
     {
-        $a = $this->post::with('allPosts', 'allVideoPosts', 'postToUser', 'likes')
+        $a = $this->video::with('allPosts', 'postToUser', 'likes')
             ->where('privacy', '!=', 'me')
             ->orderBy('created_at', 'desc')->get();
 
 
-        $b = $this->post::with('allPosts', 'allVideoPosts', 'postToUser', 'likes')
+        $b = $this->video::with('allPosts', 'postToUser', 'likes')
             ->where('user_id', $userid)
             ->orderBy('created_at', 'desc')->get();
 
         $ans = $a->merge($b);
-       // dd($ans); 
+        //dd($ans); 
         return $ans;
     }
     /**
@@ -87,7 +87,7 @@ class postService
     public function findOne($id)
     {
         //return DB::table('posts')->where('id', $id)->first();
-        return $this->post::with('allPosts')->where('user_id', $id)->get();
+        return $this->video::with('allPosts')->where('user_id', $id)->get();
     }
     /**
      * Find specific post Details
@@ -116,13 +116,13 @@ class postService
      */
     public function updatePassword($password, $email)
     {
-        $post = $this->post->where('email', $email);
+        $post = $this->video->where('email', $email);
         return $post->update(['password' => $password]);
     }
     public function create($attributes)
     {
         $attributes = Arr::except($attributes, ['_token', '_method']);
-        return $this->post->create($attributes);
+        return $this->video->create($attributes);
     }
     /**
      * Find post Details By Email
@@ -130,6 +130,6 @@ class postService
      */
     public function postDetailsByEmail($email)
     {
-        return $this->post::where('email', $email)->first();
+        return $this->video::where('email', $email)->first();
     }
 }

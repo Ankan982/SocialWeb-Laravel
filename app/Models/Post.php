@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\PostDetail;
 use App\Models\Like;
 use App\Models\User;
+use App\Models\Video;
 
 class Post extends Model
 {
@@ -21,6 +22,11 @@ class Post extends Model
    public function allPosts()
    {
     return $this->hasMany(PostDetail::class, 'post_id', 'id');
+   }
+
+   public function allVideoPosts()
+   {
+    return $this->hasMany(Video::class, 'post_id', 'id');
    }
 
    public function likes()
